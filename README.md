@@ -33,7 +33,7 @@ A **Biblioteca Virtual** é um sistema web desenvolvido utilizando o framework *
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/seu-usuario/biblioteca_virtual.git
+   git clone https://github.com/vinibalt/biblioteca_virtual.git
    cd biblioteca_virtual
    ```
 
