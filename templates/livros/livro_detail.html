@@ -1,0 +1,15 @@
+{% extends 'livros/base.html' %}
+
+{% block title %}Detalhes do Livro{% endblock %}
+
+{% block content %}
+<h1>{{ livro.titulo }}</h1>
+<ul class="list-group">
+    <li class="list-group-item"><strong>Autor:</strong> {{ livro.autor }}</li>
+    <li class="list-group-item"><strong>Categoria:</strong> {{ livro.categoria }}</li>
+    <li class="list-group-item"><strong>Idioma:</strong> {{ livro.idioma }}</li>
+    <li class="list-group-item"><strong>Status:</strong> {{ livro.get_status_display }}</li>
+    <li class="list-group-item"><strong>Publicado em:</strong> {{ livro.publicado_em }}</li>
+</ul>
+<a href="{% url 'livros:listar_livros' %}" class="btn btn-secondary mt-3">Voltar</a>
+{% endblock %}

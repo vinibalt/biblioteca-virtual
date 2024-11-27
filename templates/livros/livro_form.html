@@ -1,0 +1,41 @@
+{% extends 'livros/base.html' %}
+
+{% block title %}{{ livro|default:"Adicionar Livro" }}{% endblock %}
+
+{% block content %}
+<h1>{{ livro|default:"Adicionar Livro" }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="titulo" class="form-label">Título</label>
+        <input type="text" class="form-control" id="titulo" name="titulo" value="{{ livro.titulo|default:'' }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="autor" class="form-label">Autor</label>
+        <input type="text" class="form-control" id="autor" name="autor" value="{{ livro.autor|default:'' }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="categoria" class="form-label">Categoria</label>
+        <input type="text" class="form-control" id="categoria" name="categoria" value="{{ livro.categoria|default:'' }}">
+    </div>
+    <div class="mb-3">
+        <label for="idioma" class="form-label">Idioma</label>
+        <input type="text" class="form-control" id="idioma" name="idioma" value="{{ livro.idioma|default:'' }}">
+    </div>
+    <div class="mb-3">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select" id="status" name="status">
+            <option value="wishlist" {% if livro.status == "wishlist" %}selected{% endif %}>Wishlist</option>
+            <option value="lendo" {% if livro.status == "lendo" %}selected{% endif %}>Lendo</option>
+            <option value="lido" {% if livro.status == "lido" %}selected{% endif %}>Lido</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="publicado_em" class="form-label">Publicado em</label>
+        <input type="date" class="form-control" id="publicado_em" name="publicado_em" value="{{ livro.publicado_em|default:'' }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="{% url 'livros:listar_livros' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
