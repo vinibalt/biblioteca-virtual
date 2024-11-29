@@ -1,0 +1,31 @@
+{% extends 'livros/base.html' %}
+
+{% block content %}
+<h2>Minhas Trocas</h2>
+
+<h3>Solicitações Enviadas</h3>
+<ul>
+    {% for troca in minhas_solicitacoes %}
+        <li>
+            Você solicitou "{{ troca.livro.titulo }}" de {{ troca.dono }} - Status: {{ troca.status }}
+        </li>
+    {% empty %}
+        <p>Você ainda não enviou solicitações de troca.</p>
+    {% endfor %}
+</ul>
+
+<h3>Solicitações Recebidas</h3>
+<ul>
+    {% for troca in minhas_respostas %}
+        <li>
+            {{ troca.solicitante }} solicitou "{{ troca.livro.titulo }}" - Status: {{ troca.status }}
+            {% if troca.status == 'pendente' %}
+                <a href="{% url 'livros:atualizar_troca' troca.id 'aceitar' %}">Aceitar</a> |
+                <a href="{% url 'livros:atualizar_troca' troca.id 'recusar' %}">Recusar</a>
+            {% endif %}
+        </li>
+    {% empty %}
+        <p>Você ainda não recebeu solicitações de troca.</p>
+    {% endfor %}
+</ul>
+{% endblock %}

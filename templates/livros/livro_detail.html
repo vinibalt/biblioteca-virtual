@@ -11,5 +11,13 @@
     <li class="list-group-item"><strong>Status:</strong> {{ livro.get_status_display }}</li>
     <li class="list-group-item"><strong>Publicado em:</strong> {{ livro.publicado_em }}</li>
 </ul>
+    {% if user.is_authenticated and livro.dono != user %}
+    <a href="{% url 'livros:troca_livro' livro.id %}">Solicitar Troca</a>
+{% elif livro.dono == user %}
+    <p>Esse livro é seu.</p>
+{% else %}
+    <p><a href="{% url 'livros:login' %}">Faça login</a> para solicitar uma troca.</p>
+{% endif %}
+
 <a href="{% url 'livros:listar_livros' %}" class="btn btn-secondary mt-3">Voltar</a>
 {% endblock %}
