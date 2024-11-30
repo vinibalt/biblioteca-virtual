@@ -1,9 +1,9 @@
 
-# Biblioteca Virtual
+# Livros&Share
 
 ## Descrição
 
-A **Biblioteca Virtual** é um sistema web desenvolvido utilizando o framework **Django**. O objetivo principal do sistema é permitir que os usuários registrem, organizem e gerenciem seus livros de maneira prática e eficiente. Além disso, o sistema oferece funcionalidades de busca, categorização de livros e simulação de trocas entre os usuários.
+A **Livros&Share** é um sistema web desenvolvido utilizando o framework **Django**. O objetivo principal do sistema é permitir que os usuários registrem, organizem e gerenciem seus livros de maneira prática e eficiente. Além disso, o sistema oferece funcionalidades de busca, categorização de livros e simulação de trocas entre os usuários.
 
 ### Funcionalidades Principais:
 - **Cadastro de Livros:** Os usuários podem adicionar livros ao sistema, fornecendo informações como título, autor, categoria, idioma, status e data de publicação.
