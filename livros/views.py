@@ -17,7 +17,7 @@ from .models import Livro, Troca
 
 def logout_view(request):
     logout(request)
-    return redirect('livros:login')
+    return redirect('livros:listar_livros')
 
 
 

@@ -3,49 +3,79 @@
 {% block title %}Lista de Livros{% endblock %}
 
 {% block content %}
-<h1 class="mt-4">Lista de Livros</h1>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">📚 Lista de Livros</h1>
 
-<form method="get">
-    <input type="text" name="q" class="form-control" placeholder="Buscar livros..." value="{{ request.GET.q }}">
-    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
-</form>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <!-- Formulário de busca -->
+            <form method="get" class="d-flex mb-4">
+                <input
+                    type="text"
+                    name="q"
+                    class="form-control me-2"
+                    placeholder="Buscar livros por título, autor ou categoria..."
+                    value="{{ request.GET.q }}">
+                <button type="submit" class="btn btn-primary">🔍 Buscar</button>
+            </form>
+        </div>
+    </div>
 
     {% if user.is_authenticated %}
-<a href="{% url 'livros:adicionar_livro' %}" class="btn btn-success mt-3">Adicionar Livro</a>
-        {% else %}
-    <p class="mt-2"><a  href="{% url 'livros:login' %}">Faça login</a> para adicionar e trocar livros com a comunidade.</p>
-{% endif %}
+    <!-- Botão de Adicionar Livro -->
+    <div class="text-end">
+        <a href="{% url 'livros:adicionar_livro' %}" class="btn btn-success">➕ Adicionar Livro</a>
+    </div>
+    {% else %}
+    <!-- Mensagem para usuários não autenticados -->
+    <p class="text-center text-muted">
+        <a href="{% url 'livros:login' %}">Faça login</a> para adicionar e trocar livros com a comunidade.
+    </p>
+    {% endif %}
 
-<table class="table mt-3">
-    <thead>
-        <tr>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Categoria</th>
-            <th>Status</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for livro in livros %}
-        <tr>
-            <td>{{ livro.titulo }}</td>
-            <td>{{ livro.autor }}</td>
-            <td>{{ livro.categoria }}</td>
-            <td>{{ livro.get_status_display }}</td>
-            <td>
-                <a href="{% url 'livros:detalhes_livro' livro.pk %}" class="btn btn-info btn-sm">Detalhes</a>
-                {% if user.is_authenticated and livro.dono == user %}
-                <a href="{% url 'livros:editar_livro' livro.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="{% url 'livros:excluir_livro' livro.pk %}" class="btn btn-danger btn-sm">Excluir</a>
-                {% endif %}
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="5">Nenhum livro encontrado.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <!-- Tabela de Livros -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover mt-4">
+            <thead class="table-dark">
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Categoria</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for livro in livros %}
+                <tr>
+                    <td>{{ livro.titulo }}</td>
+                    <td>{{ livro.autor }}</td>
+                    <td>{{ livro.categoria }}</td>
+                    <td>
+                        <span class="badge
+                            {% if livro.status == 'Disponível' %}
+                                bg-success
+                            {% else %}
+                                bg-secondary
+                            {% endif %}">
+                            {{ livro.get_status_display }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{% url 'livros:detalhes_livro' livro.pk %}" class="btn btn-info btn-sm">Detalhes</a>
+                        {% if user.is_authenticated and livro.dono == user %}
+                        <a href="{% url 'livros:editar_livro' livro.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'livros:excluir_livro' livro.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">Nenhum livro encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

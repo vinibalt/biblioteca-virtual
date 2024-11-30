@@ -1,31 +1,53 @@
 {% extends 'livros/base.html' %}
 
 {% block content %}
-<h2>Minhas Trocas</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">📚 Minhas Trocas</h2>
 
-<h3>Solicitações Enviadas</h3>
-<ul>
-    {% for troca in minhas_solicitacoes %}
-        <li>
-            Você solicitou "{{ troca.livro.titulo }}" de {{ troca.dono }} - Status: {{ troca.status }}
-        </li>
-    {% empty %}
-        <p>Você ainda não enviou solicitações de troca.</p>
-    {% endfor %}
-</ul>
+    <!-- Solicitações Enviadas -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Solicitações Enviadas</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                {% for troca in minhas_solicitacoes %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Você solicitou <strong>"{{ troca.livro.titulo }}"</strong> de <em>{{ troca.dono }}</em>
+                        <span class="badge bg-secondary">{{ troca.status }}</span>
+                    </li>
+                {% empty %}
+                    <p class="text-muted">Você ainda não enviou solicitações de troca.</p>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-<h3>Solicitações Recebidas</h3>
-<ul>
-    {% for troca in minhas_respostas %}
-        <li>
-            {{ troca.solicitante }} solicitou "{{ troca.livro.titulo }}" - Status: {{ troca.status }}
-            {% if troca.status == 'pendente' %}
-                <a href="{% url 'livros:atualizar_troca' troca.id 'aceitar' %}">Aceitar</a> |
-                <a href="{% url 'livros:atualizar_troca' troca.id 'recusar' %}">Recusar</a>
-            {% endif %}
-        </li>
-    {% empty %}
-        <p>Você ainda não recebeu solicitações de troca.</p>
-    {% endfor %}
-</ul>
+    <!-- Solicitações Recebidas -->
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Solicitações Recebidas</h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                {% for troca in minhas_respostas %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ troca.solicitante }}</strong> solicitou <strong>"{{ troca.livro.titulo }}"</strong>
+                        </div>
+                        <div>
+                            <span class="badge bg-secondary">{{ troca.status }}</span>
+                            {% if troca.status == 'pendente' %}
+                                <a href="{% url 'livros:atualizar_troca' troca.id 'aceitar' %}" class="btn btn-sm btn-outline-success mx-1">Aceitar</a>
+                                <a href="{% url 'livros:atualizar_troca' troca.id 'recusar' %}" class="btn btn-sm btn-outline-danger">Recusar</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% empty %}
+                    <p class="text-muted">Você ainda não recebeu solicitações de troca.</p>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}
