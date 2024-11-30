@@ -123,7 +123,7 @@ O Diagrama de Classe do sistema pode ser descrito da seguinte forma:
   - **Métodos:** `__str__` (para representação do livro)
 
 - **`Usuario`** (Classe embutida do Django):
-  - Já é fornecida automaticamente pelo Django, então você não precisa se preocupar em implementá-la.
+  - Já é fornecida automaticamente pelo Django.
 
 ### Diagrama de Caso de Uso
 
@@ -131,13 +131,8 @@ Os **principais casos de uso** incluem:
 1. **Usuário comum:**
    - Adicionar livro à biblioteca.
    - Editar ou excluir livros da biblioteca.
-   - Buscar livros e aplicar filtros.
+   - Buscar livros.
    - Visualizar detalhes do livro.
-   
-2. **Administrador (opcional):**
-   - Visualizar e gerenciar todos os livros cadastrados.
-   - Modificar livros, inclusive aqueles cadastrados por outros usuários.
-
 ### Notificações
 
 O sistema pode incluir notificações simples (via e-mail ou interface) para lembrar os usuários de livros que estão em sua **"wishlist"** ou para notificar trocas pendentes de livros.
